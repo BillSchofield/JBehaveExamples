@@ -29,7 +29,7 @@ import java.net.URL;
 import static org.jbehave.core.reporters.StoryReporterBuilder.Format.CONSOLE;
 import static org.jbehave.core.reporters.StoryReporterBuilder.Format.HTML;
 
-public class GitHubStories extends JUnitStory {
+public class ExampleStories extends JUnitStory {
 
     @Override
     public Configuration configuration() {
