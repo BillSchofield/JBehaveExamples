@@ -1,33 +1,24 @@
 package org.jbehave.demo.stories;
 
-import org.jbehave.core.Embeddable;
 import org.jbehave.core.configuration.Configuration;
 import org.jbehave.core.configuration.MostUsefulConfiguration;
 import org.jbehave.core.failures.FailingUponPendingStep;
 import org.jbehave.core.io.LoadFromRelativeFile;
-import org.jbehave.core.io.StoryPathResolver;
 import org.jbehave.core.junit.JUnitStory;
 import org.jbehave.core.reporters.Format;
 import org.jbehave.core.reporters.IdeOnlyConsoleOutput;
-import org.jbehave.core.reporters.StoryReporter;
 import org.jbehave.core.reporters.StoryReporterBuilder;
 import org.jbehave.core.steps.InjectableStepsFactory;
 import org.jbehave.core.steps.InstanceStepsFactory;
 import org.jbehave.demo.pages.LoginPage;
-import org.jbehave.demo.steps.BeforeAndAfterSteps;
-import org.jbehave.demo.steps.GithubLoginSteps;
+import org.jbehave.demo.steps.*;
 import org.jbehave.demo.pages.LandingPage;
-import org.json.XML;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.chrome.ChromeDriver;
 
-import javax.swing.text.html.HTML;
 import java.io.File;
 import java.net.MalformedURLException;
 import java.net.URL;
-
-import static org.jbehave.core.reporters.StoryReporterBuilder.Format.CONSOLE;
-import static org.jbehave.core.reporters.StoryReporterBuilder.Format.HTML;
 
 public class ExampleStories extends JUnitStory {
 
@@ -57,8 +48,12 @@ public class ExampleStories extends JUnitStory {
 
         LandingPage landingPage = new LandingPage(driver);
         LoginPage loginPage = new LoginPage(driver);
+        final AliasSteps aliasSteps = new AliasSteps();
         return new InstanceStepsFactory(configuration(),
                 new BeforeAndAfterSteps(driver, landingPage),
+                new TableSteps(),
+                aliasSteps,
+                new ParameterConverterSteps(aliasSteps),
                 new GithubLoginSteps(landingPage, loginPage)
         );
     }

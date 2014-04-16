@@ -5,12 +5,6 @@ In order to control access to my repositories
 As a GitHub user
 I want to login to GitHub using my username & password
 
-Scenario: Login allows repo creation
-Given I have created an account
-When I login to GitHub
-Then I am logged in
-And I can create new repositories
-
 Scenario: Test addition using Tabular Parameters
 When I add these numbers:
 | x| y |
@@ -33,3 +27,19 @@ Examples:
 |             1|        10|         11|
 |            11|         1|         12|
 |            21|        11|         32|
+
+
+Scenario: Withdrawing money reduces balance
+Given my balance is $100
+When I withdraw $25
+Then my balance is $75
+
+Scenario: Spending money leaves less in my wallet
+Given $100 in my wallet
+When I spend $25
+Then I have $75 left
+
+Scenario: Multiple purchases are all removed from my wallet
+Given $100 in my wallet
+When I make purchases in the amounts: $10,$5,$15
+Then my wallet contains $70
