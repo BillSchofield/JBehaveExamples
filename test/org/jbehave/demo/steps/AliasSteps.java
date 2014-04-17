@@ -9,16 +9,19 @@ import static org.junit.Assert.assertThat;
 public class AliasSteps {
 
     private Integer actualTotal;
-    @Given("my balance is $initialValue")
+    @Given("my balance is $initialAmount")
     @Alias("$initialValue in my wallet")
-    public void initialAmount(String initialValue){
-        this.actualTotal = dollarAmountFromString(initialValue);
+    public void initialAmount(@Named("initialAmount") String initialAmount){
+        this.actualTotal = dollarAmountFromString(initialAmount);
     }
 
-    @When("I withdraw $amount")
-    @Alias("I spend $amount")
-    public void spend(String amount){
-        actualTotal -= dollarAmountFromString(amount);
+    @When("I withdraw $withdrawalAmount")
+    @Alias("I spend $withdrawalAmount")
+    public void spend(@Named("withdrawalAmount") String withdrawalAmount){
+        final Integer dollarAmount = dollarAmountFromString(withdrawalAmount);
+        if (actualTotal >= dollarAmount) {
+            actualTotal -= dollarAmount;
+        }
     }
 
     @Then("my balance is $expectedTotal")
