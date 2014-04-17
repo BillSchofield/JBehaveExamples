@@ -24,7 +24,8 @@ public class TableSteps {
 
     @When("I add these numbers:$numbers")
     public void addNumbers(ExamplesTable numbers){
-        for (Map<String, String> row : numbers.getRows()) {
+        final List<Map<String, String>> rows = numbers.getRows();
+        for (Map<String, String> row : rows) {
             final int x = Integer.parseInt(row.get("x"));
             final int y = Integer.parseInt(row.get("y"));
             actualResults.add(x + y);

@@ -10,11 +10,7 @@ import org.jbehave.core.reporters.IdeOnlyConsoleOutput;
 import org.jbehave.core.reporters.StoryReporterBuilder;
 import org.jbehave.core.steps.InjectableStepsFactory;
 import org.jbehave.core.steps.InstanceStepsFactory;
-import org.jbehave.demo.pages.LoginPage;
 import org.jbehave.demo.steps.*;
-import org.jbehave.demo.pages.LandingPage;
-import org.openqa.selenium.WebDriver;
-import org.openqa.selenium.chrome.ChromeDriver;
 
 import java.io.File;
 import java.net.MalformedURLException;
@@ -43,18 +39,12 @@ public class ExampleStories extends JUnitStory {
 
     @Override
     public InjectableStepsFactory stepsFactory() {
-        System.setProperty("webdriver.chrome.driver", "/Users/ThoughtWorker/Tools/chromedriver");
-        WebDriver driver = new ChromeDriver();
-
-        LandingPage landingPage = new LandingPage(driver);
-        LoginPage loginPage = new LoginPage(driver);
         final AliasSteps aliasSteps = new AliasSteps();
         return new InstanceStepsFactory(configuration(),
-                new BeforeAndAfterSteps(driver, landingPage),
                 new TableSteps(),
+                new CompositeSteps(),
                 aliasSteps,
-                new ParameterConverterSteps(aliasSteps),
-                new GithubLoginSteps(landingPage, loginPage)
+                new ParameterConverterSteps(aliasSteps)
         );
     }
 
