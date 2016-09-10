@@ -37,7 +37,7 @@ Given $100 in my wallet
 When I make purchases in the amounts: $10,$5,$15
 Then my wallet contains $70
 
-Scenario: Can't windraw money when balance is $0
+Scenario: Can't withdraw money when balance is $0
 Given I have withdrawn $100 from my initial balance of $100
 When I withdraw $1
 Then my balance is $0
